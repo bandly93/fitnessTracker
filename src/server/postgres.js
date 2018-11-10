@@ -14,12 +14,12 @@ export const sequelize = new Sequelize(
 
 const FoodItem = sequelize.define('fitness_table',{
 	id : {type : Sequelize.INTEGER,autoIncrement:true, primaryKey : true},
-	mealType : Sequelize.STRING,
-	item : Sequelize.STRING,
-	protein: Sequelize.INTEGER,
-	carbohydrate : Sequelize.INTEGER,
-	fat: Sequelize.INTEGER,
-	calories: Sequelize.INTEGER,
+	MealType : Sequelize.STRING,
+	Item : Sequelize.STRING,
+	Protein: Sequelize.FLOAT,
+	Carbohydrate : Sequelize.FLOAT,
+	Fat: Sequelize.FLOAT,
+	Calories: Sequelize.FLOAT,
 });
 
 module.exports = {

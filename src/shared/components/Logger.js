@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import 'react-table/react-table.css';
 import {sendData,getData} from '../redux/fetchThunk.js';
 
-let columns = ['id','createdAt','mealType','item','protein','carbohydrate','fat','calories'];
+let columns = ['id','createdAt','MealType','Item','Protein','Carbohydrate','Fat','Calories'];
 
 for ( let i = 0 ; i < columns.length; i++){
 	columns[i] = {'Header' : columns[i],'accessor' : columns[i]}
@@ -19,7 +19,12 @@ class Logger extends Component{
 	render(){
 		const{array} = this.props.database;
 		return<Fragment>
-			<ReactTable data = {array} columns = {columns} />
+			<ReactTable
+				className = '-striped -highlight'
+				data = {array} 
+				columns = {columns} 
+				defaultPageSize = {10}
+			/>
 		</Fragment>
 	}
 }

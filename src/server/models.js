@@ -14,3 +14,5 @@ const FoodItem = sequelize.define('foodItem',{
 	calories: Sequelize.INTEGER,
 });
 
+
+

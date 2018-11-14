@@ -9,11 +9,13 @@ import App from '../shared/App';
 export const handleRender = (req, res) => {
   const store = configureStore();
   const context = {};
-  const html = renderToString(<Provider store={store}>
-    <Router context={context} location={req.url}>
-      <App />
-    </Router>
-  </Provider>);
+  const html = renderToString(
+		<Provider store={store}>
+   		<Router context={context} location={req.url}>
+      	<App />
+    	</Router>
+  	</Provider>
+	);
   const preloadedState = store.getState();
   res.send(renderFullPage(html, preloadedState));
 };

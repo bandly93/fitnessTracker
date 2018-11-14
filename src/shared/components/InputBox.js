@@ -10,10 +10,10 @@ let inputOptions = ["Item","Protein","Carbohydrate","Fat"];
 let initialState = {
 	MealType : '',
 	Item : '',
-	Protein : 0,
-	Carbohydrate : 0,
-	Fat : 0,
-	Calories: 0,
+	Protein :'',
+	Carbohydrate : '',
+	Fat : '',
+	Calories: '',
 }
 
 class InputBox extends Component {
@@ -28,11 +28,10 @@ class InputBox extends Component {
 		
 	handleSubmit = async () =>{
 		const { addItem, sendData } = this.props;
-		const { Fat, Protein,Carbohydrate} = this.state;
+		const { Fat,Protein,Carbohydrate} = this.state;
 		let Calories = await (Fat * 9 ) + (Protein *4 ) + (Carbohydrate * 4);
 		this.setState({Calories});
-		sendData('/postgres','POST',this.state,addItem)
-		
+		sendData('/postgres','POST',this.state,addItem);
 	}
 
 	mapRadio = () => radioOptions.map(f => (

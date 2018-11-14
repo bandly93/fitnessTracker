@@ -4,7 +4,6 @@ const pgRouter = express.Router();
 
 import { sequelize } from '../postgres.js';
 
-
 pgRouter.route('/')
 .get(async(req,res) => {
 	let data = await sequelize.query("SELECT * FROM fitness_tables");

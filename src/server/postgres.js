@@ -22,6 +22,17 @@ const FoodItem = sequelize.define('fitness_table',{
 	Calories: Sequelize.FLOAT,
 });
 
+const BMRInput = sequelize.define('bmr_table',{
+ 
+});
+
+
+
+
+
+
+
+
 module.exports = {
 	sequelize,
 	Sequelize,	

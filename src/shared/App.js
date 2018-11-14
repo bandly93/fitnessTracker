@@ -2,35 +2,22 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import NavBar from './components/NavBar';
 import Fitness from './components/Fitness';
-
-/* uncomment	for google analytics */
-
-// import ga from 'react-ga';
-// import {GA_CODE} from '../../config.json';
+import { BrowserRouter as Router,Switch,Link,withRouter,Route } from 'react-router-dom';
+import { RoutesArray } from './routes.js';
+import {renderRoutes } from 'react-router-config';
 
 class App extends Component {
-  /*
-	componentDidMount(){
-		ga.initialize(GA_CODE,{debug:false});
-		ga.pageview(this.props.location.pathname);
-	}
-	componentWillUpdate(nextProps){
-		if(nextProps.location.pathname !== this.props.location.pathname){
-			ga.pageview(nextProps.location.pathname);
-		}
-	}
-	*/
-  render() {
-    return<div>
-			<Fitness />
-    </div>
+	mapRoutes = () => RoutesArray.map((route,i) => <Route
+		exact path = {route.path}
+		component = {route.component}
+		key = {i}
+		/>
+	)	
+	render() {
+    return<Fragment>
+			{this.mapRoutes()}		
+	 </Fragment>
   }
 }
 
-App.propTypes = {
-	
-
-
-}
-
-export default App;
+export default withRouter(App);

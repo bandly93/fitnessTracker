@@ -17,7 +17,10 @@ class Login extends Component{
 	}
 
 	handleClick = (e) => {
-		e.preventDefault();	
+		e.preventDefault();
+		
+		const { sendData } = this.props;
+		sendData('/api/login','POST', this.state);
 	}
 
 	login = () => <div className = 'login-input'>
@@ -29,7 +32,8 @@ class Login extends Component{
 				placeholder = 'Email Address' 
 				onChange = {this.updateState} />
 			<input 
-				type = 'text' name = 'password' 
+				type = 'password'
+				name = 'password' 
 				value = {this.state.password} 
 				placeholder = 'Password'
 				onChange = {this.updateState} />

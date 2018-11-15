@@ -16,3 +16,6 @@ const FoodItem = sequelize.define('foodItem',{
 
 
 
+
+
+

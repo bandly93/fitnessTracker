@@ -26,12 +26,13 @@ const BMRInput = sequelize.define('bmr_table',{
  
 });
 
-
-
-
-
-
-
+const User = sequelize.define('user',{
+	id : { type : Sequelize.STRING, primaryKey : true},
+	firstName : Sequelize.STRING,
+	lastName : Sequelize.STRING,
+	email : Sequelize.STRING,
+	password : Sequelize.STRING,
+});
 
 module.exports = {
 	sequelize,

@@ -10,7 +10,8 @@ export const sendData = (url,method,data,actFunc) => {
     	body: JSON.stringify(data),
 		})
    	.then(res => res.json())
-		.then(data =>{ 
+		.then(data =>{
+			console.log(data);
 			if(actFunc){
 				actFunc(data)
 			}
@@ -18,6 +19,25 @@ export const sendData = (url,method,data,actFunc) => {
 		.catch(err => console.error(err));
 	}
 }
+
+export const sendAndUpdateRoute = (url,method,data,authFunc) => {
+	return(dispatch) => {
+		fetch(url,{
+			method,
+			credentials : 'same-origin',
+			headers : { 'Content-Type' : 'application/json' },
+			body : JSON.stringify(data),
+		})
+		.then (authRes => authRes.json())
+		.then (authData => {
+			authFunc(authData);
+		})
+		.catch(err => {
+			console.error(err);
+		})
+	}
+}
+
 
 export const getData = (url,actFunc) => {
 	return(dispatch) => {

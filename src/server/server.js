@@ -1,30 +1,28 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
 import { handleRender } from './render.js';
 import session from 'express-session';
-import flash from 'connect-flash';
 import { sequelize } from './postgres';
-import passport from 'passport'
+const { user:User} = sequelize.models;
+import passport from 'passport';
+import morgan from 'morgan';
+import cors from 'cors';
 
 const app = express();
 const port = 3000;
 
+require('./config/passport');
 
-sequelize.sync({force:true})
-
-
-
-
-app.use(cookieParser());
+//server setup
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
-app.use(session({secret:'keyboard cat',resave:false,saveUninitialized:false}));
+app.use(morgan('dev'));
+
+//passport setup
+//app.use(session({secret:'keyboard cat',resave:false,saveUninitialized:false}));
 app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
-
-
+//app.use(passport.session());
 
 
 const pgRouter = require('./routes/pgRouter.js');

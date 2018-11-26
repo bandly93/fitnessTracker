@@ -11,7 +11,7 @@ for ( let i = 0 ; i < columns.length; i++){
 	columns[i] = {'Header' : columns[i],'accessor' : columns[i]}
 }
 
-class Logger extends Component{
+class Logger extends Component{	
 	componentDidMount(){
 		const { getData,addItem} = this.props;
 		getData('/postgres',addItem);

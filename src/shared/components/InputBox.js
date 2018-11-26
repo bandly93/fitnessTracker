@@ -1,26 +1,25 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { addItem } from '../redux/databaseModule.js';
-import {getData, sendData } from '../redux/fetchThunk.js';
+import { getData,sendData } from '../redux/fetchThunk.js';
 import '../styles/Fitness.css';
 
 let radioOptions = ["Breakfast","Lunch","Dinner","Snack"];
 let inputOptions = ["Item","Protein","Carbohydrate","Fat"];
 
-let initialState = {
-	MealType : '',
-	Item : '',
-	Protein :'',
-	Carbohydrate : '',
-	Fat : '',
-	Calories: '',
-}
-
 class InputBox extends Component {
 	constructor(props){
 		super(props)
-		this.state = initialState;
+		this.state = {
+			UserId : '79732cac-bdc6-4c71-b6f4-17ff9d995750',
+			MealType: '',
+			Protein : '',
+			Carbohydrate : '',
+			Fat : '',
+			Calories : '',
+		}
 	}
+	
 	updateState = (e) => {
 		const { name,value } = e.target;
 		this.setState({[name]:value});
@@ -28,8 +27,8 @@ class InputBox extends Component {
 		
 	handleSubmit = async () =>{
 		const { addItem, sendData } = this.props;
-		const { Fat,Protein,Carbohydrate} = this.state;
-		let Calories = await (Fat * 9 ) + (Protein *4 ) + (Carbohydrate * 4);
+		const { Fat,Protein,Carbohydrate } = this.state;
+		let Calories = await (Fat * 9) + (Protein * 4) + (Carbohydrate * 4);
 		this.setState({Calories});
 		sendData('/postgres','POST',this.state,addItem);
 	}
@@ -62,11 +61,11 @@ class InputBox extends Component {
 	}
 }
 
-
 const mapStateToProps = (state) =>{
 	return {
 		view: state.view,
 		database : state.database,
+		auth: state.auth,
 	}
 }
 
@@ -75,4 +74,5 @@ const mapDispatchToProps = {
 	sendData,
 	getData,
 }
+
 export default connect(mapStateToProps,mapDispatchToProps)(InputBox);

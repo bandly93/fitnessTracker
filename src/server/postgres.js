@@ -36,5 +36,8 @@ const User = sequelize.define('user',{
 
 module.exports = {
 	sequelize,
-	Sequelize,	
+	Sequelize,
+	User,
+	FoodItem,
+	BMRInput,	
 }

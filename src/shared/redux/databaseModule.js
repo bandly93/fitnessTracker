@@ -11,7 +11,6 @@ export const addItem = (data) => {
 	}
 }
 
-
 export const databaseReducer = (state = initialState, action) => {
 	switch(action.type){
 		case ADD_TO_DATABASE:

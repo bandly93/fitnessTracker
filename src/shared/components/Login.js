@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect} from 'react-redux';
-import { sendData,getData } from '../redux/fetchThunk.js';
+import { sendData,getData,sendAndUpdateRoute } from '../redux/fetchThunk.js';
+import { Redirect } from 'react-router';
+import { updateAuth } from '../redux/authModule.js';
 
 class Login extends Component{
 	constructor(props){
 		super(props)
 		this.state = {
 			email : '',
-			password : ''
+			password : '',
 		}
 	}
 
@@ -15,12 +17,11 @@ class Login extends Component{
 		const {name,value} = e.target;
 		this.setState({[name] : value});
 	}
-
+	
 	handleClick = (e) => {
-		e.preventDefault();
-		
-		const { sendData } = this.props;
-		sendData('/api/login','POST', this.state);
+		e.preventDefault();	
+		const { sendData,updateAuth,sendAndUpdateRoute } = this.props;
+		sendAndUpdateRoute('/api/login','POST',this.state,updateAuth);
 	}
 
 	login = () => <div className = 'login-input'>
@@ -44,22 +45,32 @@ class Login extends Component{
 	</div>
 
 	render(){
-		return	<div>
-			<h2> Please Login </h2>
-			{this.login()}
-		</div>
+		const { redirectTo } = this.props.auth;
+		const { pathname } = this.props.location;
+
+		if(redirectTo && redirectTo !== pathname){
+			return <Redirect to = { redirectTo} />
+		}else{
+			return<div>
+				<h2> Please Login </h2>
+				{this.login()}
+			</div>
+		}
 	}
 }
 
 const mapStateToProps = (state) =>{
 	return{
 		view : state.view,
+		auth : state.auth,
 	}
 }
 
 const mapDispatchToProps = {
 	sendData,
 	getData,
+	updateAuth,
+	sendAndUpdateRoute,
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Login);

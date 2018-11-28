@@ -23,11 +23,25 @@ class FitnessProfile extends Component {
 		}	
 	}
 	
+	handleLogout = () => {
+		delete localStorage.JWT;
+		this.props.updateAuth({isLogged:false,auth:false,user:{},token:''});
+	}
+
+	logoutButton = () => {
+		return <div>
+			<p onClick = {this.handleLogout}> Logout </p>
+		</div>
+	}			
+	
 	render(){
-		if(!this.props.auth.isLogged){
+		const { isLogged,user} = this.props.auth;
+		if(!isLogged){
 			return <Redirect to = {'/login'} />
-		}else if (this.props.auth.isLogged ){
+		}else if (isLogged ){
 			return<Fragment>
+				{this.logoutButton()}
+				<h1>Hello, {user.firstName} </h1>
 				<h1> Welcome to the Fitness page! </h1>
 				<InputBox />
 				<BMR />

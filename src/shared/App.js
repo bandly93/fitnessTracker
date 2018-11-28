@@ -1,36 +1,23 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import NavBar from './components/NavBar';
-import Fitness from './components/Fitness';
+import FitnessProfile from './components/Fitness';
 import { BrowserRouter as Router,Switch,Link,withRouter,Route,Redirect } from 'react-router-dom';
-import { privateRoutes, publicRoutes } from './routes.js';
+import { routes } from './routes.js';
 import { connect } from 'react-redux';
 import { updateAuth } from './redux/authModule.js';
 
 class App extends Component {
-	pubRoutes = () => publicRoutes.map((route,i) => <Route
+	mapRoutes = () => routes.map((route,i) => <Route
 		exact = {route.exact} path = {route.path}
 		component = {route.component}
 		key = {i}
 		/>
-	)	
-
-	privRoutes = (Component) => (
-		<Route
-			render = {() =>
-				this.props.auth.isLogged ?
-					<Component />
-				:
-					<Redirect to ='/login' />
-			}
-		/>
-	)
-	
+	)		
 	render() {
     return<Fragment>
 			<Switch>
-				{this.pubRoutes()}
-				{this.privRoutes(Fitness)}
+				{this.mapRoutes()}
 			</Switch>
 	 </Fragment>
   }

@@ -4,6 +4,8 @@ let initialState = {
 	'message' : '',
 	'isLogged' : false,
 	'status' : '',
+	'token' : '',
+	'auth' : false,
 }
 
 export const REDIRECT_PATH = 'REDIRECT_PATH';

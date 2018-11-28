@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect} from 'react-redux';
-import { sendData,getData,sendAndUpdateRoute } from '../redux/fetchThunk.js';
+import { sendData,getData,authFetch } from '../redux/fetchThunk.js';
 import { Redirect } from 'react-router';
 import { updateAuth } from '../redux/authModule.js';
+import axios from 'axios';
 
 class Login extends Component{
 	constructor(props){
@@ -11,7 +12,7 @@ class Login extends Component{
 			email : '',
 			password : '',
 		}
-	}
+	}	
 
 	updateState = (e) =>{
 		const {name,value} = e.target;
@@ -20,8 +21,8 @@ class Login extends Component{
 	
 	handleClick = (e) => {
 		e.preventDefault();	
-		const { sendData,updateAuth,sendAndUpdateRoute } = this.props;
-		sendAndUpdateRoute('/api/login','POST',this.state,updateAuth);
+		const { sendData,updateAuth,authFetch } = this.props;
+		authFetch('/api/login','POST',this.state,updateAuth);	
 	}
 
 	login = () => <div className = 'login-input'>
@@ -45,11 +46,10 @@ class Login extends Component{
 	</div>
 
 	render(){
-		const { redirectTo } = this.props.auth;
-		const { pathname } = this.props.location;
+		const { redirectTo,isLogged } = this.props.auth;
 
-		if(redirectTo && redirectTo !== pathname){
-			return <Redirect to = { redirectTo} />
+		if(isLogged){
+			return <Redirect to = { '/' } />
 		}else{
 			return<div>
 				<h2> Please Login </h2>
@@ -70,7 +70,7 @@ const mapDispatchToProps = {
 	sendData,
 	getData,
 	updateAuth,
-	sendAndUpdateRoute,
+	authFetch,
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Login);

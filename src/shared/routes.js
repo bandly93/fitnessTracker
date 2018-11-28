@@ -1,27 +1,21 @@
 import Login from './components/Login.js';
-import Fitness from './components/Fitness.js';
+import FitnessProfile from './components/Fitness.js';
 import Register from './components/Register.js';
 
-export const publicRoutes = [
+export const routes = [
+	{
+		path : '/',
+		component : FitnessProfile,
+		exact : true,
+	},
 	{
 		path : '/login',
-		component :Login,
-		exact : false,
-		private : false,
+		component : Login,
+		exact : true,
 	},
 	{
 		path : '/register',
 		component : Register,
-		exact : false,
-		private : false,
-	},
-]
-
-export const privateRoutes = [
-	{
-		path: '/',
-		component : Fitness,
 		exact : true,
-		private : true,
-	}
-]
+	},
+];

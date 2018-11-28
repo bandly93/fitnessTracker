@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { handleRender } from './render.js';
-import session from 'express-session';
+//import session from 'express-session';
 import { sequelize } from './postgres';
 const { user:User} = sequelize.models;
 import passport from 'passport';
@@ -23,7 +23,6 @@ app.use(morgan('dev'));
 //app.use(session({secret:'keyboard cat',resave:false,saveUninitialized:false}));
 app.use(passport.initialize());
 //app.use(passport.session());
-
 
 const pgRouter = require('./routes/pgRouter.js');
 const authRouter = require('./routes/authRoutes.js');

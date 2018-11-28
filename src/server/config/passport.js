@@ -4,9 +4,8 @@ import { sequelize } from '../postgres';
 const { user:User } = sequelize.models;
 
 const passport = require('passport')
-const LocalStrategy = require('passport-local').Strategy
-const JWTStrategy = require('passport-jwt').Strategy
-const ExtractJWT = require('passport-jwt').ExtractJwt
+const { Strategy:JWTStrategy , ExtractJwt } = require('passport-jwt');
+const { Strategy:LocalStrategy } = require('passport-local');
 
 const localOpts = {
 	usernameField:'email',
@@ -29,17 +28,18 @@ passport.use('local', new LocalStrategy(localOpts,async(email,password,done) => 
 }))
 
 const jwtOpts = {
-	jwtFromRequest : ExtractJWT.fromAuthHeaderWithScheme('JWT'),
+	jwtFromRequest : ExtractJwt.fromAuthHeaderWithScheme('JWT'),
 	secretOrKey : jwtSecret.secret,
 }
 
-passport.use('jwt', new JWTStrategy(jwtOpts,async(jwt_payload,done) => {
-	console.log(jwt_payload,'jwt_payload');
+passport.use('jwt', new JWTStrategy(jwtOpts,async(payload,done) => {
 	try {
-		let user = await User.findOne({where:{email : jwt_payload.id}});
+		let user = await User.findOne({where:{email : payload.email}});
 		if(!user){
+			console.log('no user in database');
 			done(null,false);
 		}else{
+			console.log('user found in passport');
 			done(null,user);
 		}
 	}
@@ -49,9 +49,11 @@ passport.use('jwt', new JWTStrategy(jwtOpts,async(jwt_payload,done) => {
 }))
 
 passport.serializeUser((user,done) => {
-	done(null,user);
+	done(null,user.id);
 });
 
-passport.deserializeUser((user,done) => {
-	done(null,user);
+passport.deserializeUser((id,done) => {
+	User.findByPk(id,(err,user) => {
+		done(err,user);
+	})
 });

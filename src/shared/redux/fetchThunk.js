@@ -20,7 +20,7 @@ export const sendData = (url,method,data,actFunc) => {
 	}
 }
 
-export const sendAndUpdateRoute = (url,method,data,authFunc) => {
+export const authFetch = (url,method,data,authFunc) => {
 	return(dispatch) => {
 		fetch(url,{
 			method,
@@ -28,9 +28,13 @@ export const sendAndUpdateRoute = (url,method,data,authFunc) => {
 			headers : { 'Content-Type' : 'application/json' },
 			body : JSON.stringify(data),
 		})
-		.then (authRes => authRes.json())
-		.then (authData => {
-			authFunc(authData);
+		.then (res => res.json())
+		.then (data => {
+			//sign token to localstorage before calling authFunc
+			if(data.token != null){
+				localStorage.setItem('JWT',data.token);
+			}
+			authFunc(data);
 		})
 		.catch(err => {
 			console.error(err);
@@ -38,14 +42,12 @@ export const sendAndUpdateRoute = (url,method,data,authFunc) => {
 	}
 }
 
-
 export const getData = (url,actFunc) => {
 	return(dispatch) => {
 		fetch(url,{credentials: 'same-origin'})
 		.then(res => res.json())
 		.then(data => {
 			if(actFunc){
-				//console.log(data);
 				actFunc(data)
 			}
 		})

@@ -43,7 +43,6 @@ class Register extends Component{
 			confirmPass : '',
 		}
 	}
-	compon
 
 	updateState = (e) => {
 		const { name,value} = e.target;

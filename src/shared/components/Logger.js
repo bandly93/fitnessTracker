@@ -1,9 +1,9 @@
-import React, { Component,Fragment} from 'react';
+import React, { Component,Fragment } from 'react';
 import ReactTable from 'react-table';
-import {addItem} from '../redux/databaseModule.js';
-import {connect} from 'react-redux';
+import { addItem } from '../redux/databaseModule.js';
+import { connect } from 'react-redux';
 import 'react-table/react-table.css';
-import {sendData,getData} from '../redux/fetchThunk.js';
+import { sendData,getData } from '../redux/fetchThunk.js';
 
 let columns = ['id','createdAt','MealType','Item','Protein','Carbohydrate','Fat','Calories'];
 
@@ -31,7 +31,7 @@ class Logger extends Component{
 
 const mapStateToProps = (state) =>{
 	return {
-		view:state.view,
+		view : state.view,
 		database : state.database,
 	}
 }

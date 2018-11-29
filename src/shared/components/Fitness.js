@@ -9,9 +9,16 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 
 class FitnessProfile extends Component {
+	constructor(){
+		super()
+		this.state = {
+			token : localStorage.getItem('JWT'),
+		}
+	}
+	
 	async componentDidMount(){
 		const { authFetch,updateAuth,auth } = this.props;
-		let jwtToken = localStorage.getItem('JWT');
+		let jwtToken = this.state.token;
 		if(jwtToken){
 			await axios
 				.get('/api/user',{
@@ -35,10 +42,11 @@ class FitnessProfile extends Component {
 	}			
 	
 	render(){
+		console.log(this.state.token, 'token from state');
 		const { isLogged,user} = this.props.auth;
-		if(!isLogged){
+		if(!this.state.token){
 			return <Redirect to = {'/login'} />
-		}else if (isLogged ){
+		}else{
 			return<Fragment>
 				{this.logoutButton()}
 				<h1>Hello, {user.firstName} </h1>

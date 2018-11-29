@@ -3,7 +3,7 @@ import passport from 'passport';
 import jwtSecret from '../config/jwtConfig';
 import jwt from 'jsonwebtoken';
 import { sequelize } from '../postgres';
-const { user:User } = sequelize.models;
+const { user_table:User } = sequelize.models;
 import uuidv4 from 'uuid/v4';
 import bcrypt from 'bcrypt';
 	
@@ -40,10 +40,8 @@ authRouter.post('/register', async (req,res) => {
 		}else{
 			let userInfo = {...req.body};
 			userInfo.password = await bcrypt.hash(req.body.password,5);
-			userInfo.id = await uuidv4();
-			
+			userInfo.userId = await uuidv4();	
 			let createUser = await User.create(userInfo);
-			
 			if(createUser){
 				res.status(200).json({'status':'User successfully created',redirectTo :'/login'});
 			}
@@ -51,10 +49,7 @@ authRouter.post('/register', async (req,res) => {
 	}catch(e){
 		throw(e);
 	}
-
 })
-
-
 
 authRouter.get('/user',(req,res,next) => {
 	passport.authenticate('jwt', {session:false},(err,user,info) => {

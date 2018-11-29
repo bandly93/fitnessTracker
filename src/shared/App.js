@@ -15,6 +15,7 @@ class App extends Component {
 		/>
 	)		
 	render() {
+		console.log(this.props.auth);
     return<Fragment>
 			<Switch>
 				{this.mapRoutes()}

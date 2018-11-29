@@ -1,8 +1,7 @@
 import jwtSecret from './jwtConfig';
 import bcrypt from 'bcrypt';
 import { sequelize } from '../postgres';
-const { user:User } = sequelize.models;
-
+const { user_table:User } = sequelize.models;
 const passport = require('passport')
 const { Strategy:JWTStrategy , ExtractJwt } = require('passport-jwt');
 const { Strategy:LocalStrategy } = require('passport-local');
@@ -22,8 +21,8 @@ passport.use('local', new LocalStrategy(localOpts,async(email,password,done) => 
 			return done(null,user);
 		}
 	}
-	catch(err){
-		done(err);	
+	catch(e){
+		done(e);	
 	}
 }))
 
@@ -49,7 +48,7 @@ passport.use('jwt', new JWTStrategy(jwtOpts,async(payload,done) => {
 }))
 
 passport.serializeUser((user,done) => {
-	done(null,user.id);
+	done(null,user.userId);
 });
 
 passport.deserializeUser((id,done) => {

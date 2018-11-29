@@ -13,8 +13,8 @@ for ( let i = 0 ; i < columns.length; i++){
 
 class Logger extends Component{	
 	componentDidMount(){
-		const { getData,addItem} = this.props;
-		getData('/postgres',addItem);
+		const { sendData,addItem,user} = this.props;
+		sendData('/postgres/getUserInfo','POST',user,addItem);
 	}
 	render(){
 		const{array} = this.props.database;
@@ -33,6 +33,7 @@ const mapStateToProps = (state) =>{
 	return {
 		view : state.view,
 		database : state.database,
+		auth : state.auth,
 	}
 }
 

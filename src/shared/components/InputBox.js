@@ -5,18 +5,19 @@ import { getData,sendData } from '../redux/fetchThunk.js';
 import '../styles/Fitness.css';
 
 let radioOptions = ["Breakfast","Lunch","Dinner","Snack"];
-let inputOptions = ["Item","Protein","Carbohydrate","Fat"];
+let inputOptions = ["item","protein","carbohydrate","fat"];
 
 class InputBox extends Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			UserId : '79732cac-bdc6-4c71-b6f4-17ff9d995750',
-			MealType: '',
-			Protein : '',
-			Carbohydrate : '',
-			Fat : '',
-			Calories : '',
+			userId : '',
+			mealType: '',
+			item : '',
+			protein : '',
+			carbohydrate : '',
+			fat : '',
+			calories : '',
 		}
 	}
 	
@@ -26,19 +27,19 @@ class InputBox extends Component {
 	}
 		
 	handleSubmit = async () =>{
-		const { addItem, sendData } = this.props;
-		const { Fat,Protein,Carbohydrate } = this.state;
-		let Calories = await (Fat * 9) + (Protein * 4) + (Carbohydrate * 4);
-		this.setState({Calories});
-		sendData('/postgres','POST',this.state,addItem);
+		const { addItem, sendData, auth } = this.props;
+		const { fat,protein,carbohydrate } = this.state;
+		let calories = await (fat * 9) + (protein * 4) + (carbohydrate * 4);
+		this.setState({calories,userId:auth.user.userId});
+		sendData('/postgres/addFood','POST',this.state,addItem);
 	}
 
 	mapRadio = () => radioOptions.map(f => (
 		<input 
 			key = {f} 
 			type = 'button' 
-			name = "MealType" 
-			className = {this.state.MealType === f? 'active':'none'}  
+			name = "mealType" 
+			className = {this.state.mealType === f? 'active':'none'}  
 			value = {f} 
 			onClick = {this.updateState} />
 	))

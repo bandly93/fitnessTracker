@@ -12,22 +12,27 @@ export const sequelize = new Sequelize(
 	}
 );
 
-const FoodItem = sequelize.define('fitness_table',{
-	id : {type : Sequelize.INTEGER,autoIncrement:true, primaryKey : true},
-	MealType : Sequelize.STRING,
-	Item : Sequelize.STRING,
-	Protein: Sequelize.FLOAT,
-	Carbohydrate : Sequelize.FLOAT,
-	Fat: Sequelize.FLOAT,
-	Calories: Sequelize.FLOAT,
+const FoodItem = sequelize.define('food_table',{
+	id : {type : Sequelize.INTEGER,autoIncrement:true, primaryKey:true},
+	userId : Sequelize.STRING,
+	mealType : Sequelize.STRING,
+	item : Sequelize.STRING,
+	protein: Sequelize.FLOAT,
+	carbohydrate : Sequelize.FLOAT,
+	fat: Sequelize.FLOAT,
+	calories: Sequelize.FLOAT,
 });
 
 const BMRInput = sequelize.define('bmr_table',{
- 
+	userId : Sequelize.STRING,
+	height : Sequelize.FLOAT,
+	weight : Sequelize.FLOAT,
+	age : Sequelize.INTEGER,
+	gender : Sequelize.STRING,
 });
 
-const User = sequelize.define('user',{
-	id : { type : Sequelize.STRING, primaryKey : true},
+const User = sequelize.define('user_table',{
+	userId: { type : Sequelize.STRING, primaryKey : true},
 	firstName : Sequelize.STRING,
 	lastName : Sequelize.STRING,
 	email : Sequelize.STRING,

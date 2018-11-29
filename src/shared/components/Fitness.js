@@ -3,22 +3,17 @@ import InputBox from './InputBox.js';
 import Logger from './Logger.js';
 import BMR from './BMR.js';
 import { authFetch } from '../redux/fetchThunk.js';
-import { connect } from 'react-redux';
-import { updateAuth } from '../redux/authModule.js';
+import { connect,store } from 'react-redux';
+import { updateAuth,resetAuth } from '../redux/authModule.js';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import { resetDB } from '../redux/databaseModule.js';
 
 class FitnessProfile extends Component {
-	constructor(){
-		super()
-		this.state = {
-			token : localStorage.getItem('JWT'),
-		}
-	}
 	
 	async componentDidMount(){
 		const { authFetch,updateAuth,auth } = this.props;
-		let jwtToken = this.state.token;
+		const jwtToken = localStorage.getItem('JWT');
 		if(jwtToken){
 			await axios
 				.get('/api/user',{
@@ -26,13 +21,18 @@ class FitnessProfile extends Component {
 				})
 				.then(response => {
 					updateAuth(response.data);
-				})	
+				})
+				.catch(err => {
+					console.log(err);
+				})
 		}	
 	}
 	
 	handleLogout = () => {
+		const { resetAuth,resetDB } = this.props;
 		delete localStorage.JWT;
-		this.props.updateAuth({isLogged:false,auth:false,user:{},token:''});
+		resetAuth();
+		resetDB();	
 	}
 
 	logoutButton = () => {
@@ -42,9 +42,8 @@ class FitnessProfile extends Component {
 	}			
 	
 	render(){
-		console.log(this.state.token, 'token from state');
-		const { isLogged,user} = this.props.auth;
-		if(!this.state.token){
+		const { user,isLogged,auth } = this.props.auth;
+		if(!auth){
 			return <Redirect to = {'/login'} />
 		}else{
 			return<Fragment>
@@ -68,6 +67,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
 	authFetch,
 	updateAuth,
+	resetAuth,
+	resetDB,
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(FitnessProfile);

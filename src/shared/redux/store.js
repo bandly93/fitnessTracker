@@ -4,7 +4,7 @@ import view from './viewModule.js';
 import database from './databaseModule.js';
 import auth from './authModule.js';
 
-const reducers = combineReducers({
+const reducer = combineReducers({
   view,
 	database,
 	auth,
@@ -12,14 +12,12 @@ const reducers = combineReducers({
 
 export default function configureStore(preloadedState) {
   return createStore(
-    reducers,
+    reducer,
     preloadedState,
     compose(
       applyMiddleware(thunk),
-			/*
       typeof window !== 'undefined' &&
 				window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
-			*/
     ),
   );
 }

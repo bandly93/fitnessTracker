@@ -24,6 +24,7 @@ authRouter.post('/login',(req,res,next) => {
 						auth : true,
 						token,
 						isLogged : true,
+						user,
 					})
 				}
 			})

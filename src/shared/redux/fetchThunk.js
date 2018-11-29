@@ -11,7 +11,6 @@ export const sendData = (url,method,data,actFunc) => {
 		})
    	.then(res => res.json())
 		.then(data =>{
-			console.log(data);
 			if(actFunc){
 				actFunc(data)
 			}

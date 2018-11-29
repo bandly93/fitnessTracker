@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import 'react-table/react-table.css';
 import { sendData,getData } from '../redux/fetchThunk.js';
 
-let columns = ['id','createdAt','MealType','Item','Protein','Carbohydrate','Fat','Calories'];
+let columns = ['createdAt','mealType','item','protein','carbohydrate','fat','calories'];
 
 for ( let i = 0 ; i < columns.length; i++){
 	columns[i] = {'Header' : columns[i],'accessor' : columns[i]}
@@ -13,15 +13,15 @@ for ( let i = 0 ; i < columns.length; i++){
 
 class Logger extends Component{	
 	componentDidMount(){
-		const { sendData,addItem,user} = this.props;
-		sendData('/postgres/getUserInfo','POST',user,addItem);
+		const { sendData,addItem,auth} = this.props;	
+		sendData('/postgres/getUserInfo','POST',auth.user,addItem);
 	}
 	render(){
-		const{array} = this.props.database;
+		const{foodItems} = this.props.database;
 		return<Fragment>
 			<ReactTable
 				className = '-striped -highlight'
-				data = {array} 
+				data = {foodItems} 
 				columns = {columns} 
 				defaultPageSize = {10}
 			/>

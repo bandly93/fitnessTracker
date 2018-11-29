@@ -25,10 +25,12 @@ const FoodItem = sequelize.define('food_table',{
 
 const BMRInput = sequelize.define('bmr_table',{
 	userId : Sequelize.STRING,
-	height : Sequelize.FLOAT,
+	feet : Sequelize.FLOAT,
+	inches : Sequelize.FLOAT,
 	weight : Sequelize.FLOAT,
 	age : Sequelize.INTEGER,
 	gender : Sequelize.STRING,
+	bmr : Sequelize.FLOAT,
 });
 
 const User = sequelize.define('user_table',{

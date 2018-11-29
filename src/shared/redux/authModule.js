@@ -13,6 +13,13 @@ export const UPDATE_USER = 'UPDATE_USER';
 export const IS_LOGGED = 'IS_LOGGED';
 export const NOT_LOGGED = 'NOT_LOGGED';
 export const UPDATE_AUTH = 'UPDATE_AUTH';
+export const RESET_AUTH = 'RESET_AUTH';
+
+export const resetAuth = () => {
+	return{
+		type : RESET_AUTH,
+	}
+}
 
 export const redirectPath = (path) => {
 	return{
@@ -72,18 +79,15 @@ export const authReducer = (state = initialState,action) =>{
 				...state,
 				...{isLogged : true},
 			}
-
 		case NOT_LOGGED :
 			return {
 				...state,
 				...{isLogged: false},
 			}
+		case RESET_AUTH : 
+			return initialState;
 		default :
 			return state;
 	}
-
 }
 export default authReducer;
-
-
-

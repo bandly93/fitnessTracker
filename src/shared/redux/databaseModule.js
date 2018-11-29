@@ -1,7 +1,9 @@
 const ADD_TO_DATABASE = 'ADD_TO_DATABASE';
+const RESET_REDUX = 'RESET_REDUX';
 
 let initialState = {
-	array : [],
+	foodItems : [],
+	bmr : {},
 }
 
 export const addItem = (data) => {
@@ -11,10 +13,18 @@ export const addItem = (data) => {
 	}
 }
 
+export const resetDB = () => {
+	return{
+		type : RESET_REDUX,
+	}
+}
+
 export const databaseReducer = (state = initialState, action) => {
 	switch(action.type){
 		case ADD_TO_DATABASE:
 			return {...state,...action.data};
+		case RESET_REDUX:
+			return initialState;
 		default:
 			return state;
 	}

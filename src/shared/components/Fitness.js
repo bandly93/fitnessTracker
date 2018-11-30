@@ -44,7 +44,7 @@ class FitnessProfile extends Component {
 	render(){
 		const { user,isLogged,auth } = this.props.auth;
 		if(!auth){
-			return <Redirect to = {'/login'} />
+			return <Redirect to = {'/'} />
 		}else{
 			return<Fragment>
 				{this.logoutButton()}

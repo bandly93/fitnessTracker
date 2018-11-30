@@ -1,10 +1,16 @@
-import Login from './components/Login.js';
-import FitnessProfile from './components/Fitness.js';
-import Register from './components/Register.js';
+import Login from './components/Login';
+import FitnessProfile from './components/Fitness';
+import Register from './components/Register';
+import Home from './components/Home';
 
 export const routes = [
-	{
+	{		
 		path : '/',
+		component : Home,
+		exact : true,
+	},
+	{
+		path : '/app',
 		component : FitnessProfile,
 		exact : true,
 	},

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,Fragment} from 'react';
 import { connect} from 'react-redux';
 import { sendData,getData,authFetch } from '../redux/fetchThunk.js';
 import { Redirect } from 'react-router';
@@ -25,36 +25,34 @@ class Login extends Component{
 		authFetch('/api/login','POST',this.state,updateAuth);	
 	}
 
-	login = () => <div className = 'login-input'>
-		<form>
-			<input 
-				type = 'text' 
-				name = 'email' 
-				value = {this.state.email}
-				placeholder = 'Email Address' 
-				onChange = {this.updateState} />
-			<input 
-				type = 'password'
-				name = 'password' 
-				value = {this.state.password} 
-				placeholder = 'Password'
-				onChange = {this.updateState} />
-			<button onClick = {this.handleClick}>
-				Log In
-			</button>
-		</form>
-	</div>
+	login = () => <form>
+		<input 
+			type = 'text' 
+			name = 'email' 
+			value = {this.state.email}
+			placeholder = 'Email Address'
+			autocomplete = 'off' 
+			onChange = {this.updateState} />
+		<input 
+			type = 'password'
+			name = 'password' 
+			value = {this.state.password} 
+			placeholder = 'Password'
+			autocomplete = 'off'
+			onChange = {this.updateState} />
+		<button onClick = {this.handleClick}>
+			Log In
+		</button>
+	</form>
 
 	render(){
 		const { redirectTo,isLogged } = this.props.auth;
-
 		if(isLogged){
-			return <Redirect to = { '/' } />
+			return <Redirect to = { '/app' } />
 		}else{
-			return<div>
-				<h2> Please Login </h2>
+			return<Fragment>
 				{this.login()}
-			</div>
+			</Fragment>
 		}
 	}
 }

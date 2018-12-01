@@ -34,6 +34,7 @@ authRouter.post('/login',(req,res,next) => {
 
 authRouter.post('/register', async (req,res) => {
 	const { email } = req.body;
+	console.log(req.body);
 	try{
 		let user = await User.findOne({where: {email}});	
 		if(user){
@@ -44,7 +45,7 @@ authRouter.post('/register', async (req,res) => {
 			userInfo.userId = await uuidv4();	
 			let createUser = await User.create(userInfo);
 			if(createUser){
-				res.status(200).json({'status':'User successfully created',redirectTo :'/login'});
+				res.status(200).json({'status':'success',redirectTo :'/app'});
 			}
 		}
 	}catch(e){

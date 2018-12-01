@@ -3,34 +3,8 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { sendData } from '../redux/fetchThunk.js';
 import { updateAuth } from '../redux/authModule.js'; 
-
-let array = [
-	{
-		name : 'firstName',
-		type : 'text',
-		text : 'First Name',
-	},
-	{
-		name : 'lastName',
-		type : 'text',
-		text : 'Last Name',
-	},
-	{
-		name : 'email',
-		type : 'email',
-		text : 'Email',
-	},
-	{
-		name : 'password',
-		type : 'password',
-		text : 'Password',
-	},
-	{
-		name : 'confirmPass',
-		type : 'password',
-		text : 'Confirm Password',
-	},
-]
+import { registerData } from '../data/registerData';
+import { updateState,mapForm,button} from '../utils/inputUtils';
 
 class Register extends Component{
 	constructor(props){
@@ -40,8 +14,10 @@ class Register extends Component{
 			lastName : '',
 			email : '',
 			password : '',
-			confirmPass : '',
 		}
+	}
+	componentWillUnmount(){
+		this.props.updateAuth({status:''});
 	}
 
 	updateState = (e) => {
@@ -55,28 +31,27 @@ class Register extends Component{
 		sendData('/api/register','POST',this.state,updateAuth);
 	}
 
-	inputForm = () => array.map(f => {
-		const {text,type,name } = f;
-		return <div key = {f.name}>
-			<p> {text} </p>
-			<input
-				type = {type} 
-				name = {name}
-				value = {this.state.name}
-				onChange = {this.updateState}
+	inputForm = () => {
+		return registerData.map((f,i) => <input
+			key = {i}
+			type = {f.type} 
+			name = {f.name}
+			value = {this.state.name}
+			placeholder = {f.placeholder}
+			onChange = {this.updateState}
 			/>
-		</div>
-	})
-
+		)
+	}
+	
 	render(){
-		if(this.props.auth.redirectTo){
-			console.log(this.props);
-			return <Redirect  to = {this.props.auth.redirectTo} />
+		if(this.props.auth.status == 'success') {
+			return <Redirect to = {this.props.auth.redirectTo} />
 		}else{
-			return<Fragment>
-				{this.inputForm()}
-				<button onClick = {this.handleSubmit}> Submit </button>
-			</Fragment>
+	
+		return<form>
+			{this.inputForm()}
+			<button onClick = {this.handleSubmit}> Submit </button>
+		</form>
 		}
 	}
 }
@@ -94,4 +69,3 @@ const mapDispatchToProps = {
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Register);
-

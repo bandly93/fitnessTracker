@@ -3,7 +3,7 @@ import { connect} from 'react-redux';
 import { sendData,getData,authFetch } from '../redux/fetchThunk.js';
 import { Redirect } from 'react-router';
 import { updateAuth } from '../redux/authModule.js';
-import axios from 'axios';
+import { loginData } from '../data/loginData';
 
 class Login extends Component{
 	constructor(props){
@@ -25,34 +25,29 @@ class Login extends Component{
 		authFetch('/api/login','POST',this.state,updateAuth);	
 	}
 
-	login = () => <form>
-		<input 
-			type = 'text' 
-			name = 'email' 
-			value = {this.state.email}
-			placeholder = 'Email Address'
-			autocomplete = 'off' 
+	login = () => {
+		return loginData.map((f,i) => <input
+			key = {i}
+			type = {f.type}
+			name = {f.name}
+			value = {this.state.name}
+			placeholder = {f.placeholder}
+			autoComplete = {f.autoComplete}
 			onChange = {this.updateState} />
-		<input 
-			type = 'password'
-			name = 'password' 
-			value = {this.state.password} 
-			placeholder = 'Password'
-			autocomplete = 'off'
-			onChange = {this.updateState} />
-		<button onClick = {this.handleClick}>
-			Log In
-		</button>
-	</form>
-
+		)
+	}
+		
 	render(){
 		const { redirectTo,isLogged } = this.props.auth;
 		if(isLogged){
 			return <Redirect to = { '/app' } />
 		}else{
-			return<Fragment>
+			return<form>
 				{this.login()}
-			</Fragment>
+				<button onClick = {this.handleClick}>
+					Log In
+				</button>
+			</form>
 		}
 	}
 }

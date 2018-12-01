@@ -8,7 +8,14 @@
 	overflow:hidden;
 	text-align:center;
 	height:100vh;
+	-webkit-transition : width 2s;
+	transition-delay : 2s;
 }
+
+#home-container p{
+	cursor:pointer;
+}
+
 
 #home-left{
 	background:url('../images/background.jpg') no-repeat;
@@ -27,7 +34,7 @@
 .or{
 	display:flex;
 	flex-direction:row;
-	margin-bottom:1.2rem;
+	margin :1.2rem;
 	align-items:center;
 }
 
@@ -62,7 +69,8 @@
 	border : 1px solid #555;
 	color :#ccc;
 	padding: 0.5rem 1rem;
-	line-height: 1.3rem;	
+	line-height: 1.3rem;
+	margin-bottom : 1.3rem;	
 }
 
 #home-right{
@@ -76,5 +84,3 @@
 h1,h2,h3{
 	font-weight: 300
 }
-
-

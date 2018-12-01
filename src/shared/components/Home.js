@@ -22,13 +22,13 @@ class Home extends Component {
 	render(){
 		const { Component } = this.state;
 		return<div id = 'home-container'>
-			<div id = 'home-left'>
+			<div id = 'home-title'>
 				<h1>Welcome to FitnessTrackr </h1>
 				<p> The simple approach to counting macros and start achieving your fitness goals.</p>
 			</div>
-			<div id = 'home-right'>
-				<div id = 'login'>
-					<h1>{Component === Login ? 'Login' : 'Register'}</h1>
+			<div id = 'input-box'>
+				<div id = 'home-input'>
+					<h1>{Component === Login ? 'Login' : 'Create an account'}</h1>
 					<Component />
 				</div>
 				<div className = 'or'>
@@ -36,18 +36,18 @@ class Home extends Component {
 					<span> OR </span>
 					<hr className = 'bar'/>
 				</div>
-				<div id = 'register'>
+				<div>
 					<p id = 'home-p' onClick = {this.updateState}> 
 						{ Component === Login? "Don't have an account?" : 'Already have an account?'}
 					</p>
 				</div>
-				<footer id = 'main-footer'>
-					<p> Copyright &copy; 2018, FitnessTrackr All Rights Reserved. </p>
-					<div>
-						<Link to =''> Terms of use </Link> | <Link to =''> Privacy Policy </Link>
-					</div>
-				</footer>
 			</div>
+			<footer id = 'main-footer'>
+				<p> Copyright &copy; 2018, FitnessTrackr All Rights Reserved. </p>
+				<div>
+					<Link to =''> Terms of use </Link> | <Link to =''> Privacy Policy </Link>
+				</div>
+			</footer>
 		</div>
 	}
 }

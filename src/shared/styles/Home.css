@@ -1,34 +1,39 @@
 #home-container {
-	display:flex;
-	flex-direction:row;
+	display:grid;
 	font-family: 'Roboto',sans-serif;
 	font-weight: 300;
 	background:#232121;
-	color:white;
+	color:black;
 	overflow:hidden;
 	text-align:center;
 	height:100vh;
 	-webkit-transition : width 2s;
 	transition-delay : 2s;
+	background:url('../images/healthy2.jpg') no-repeat;
+	background-size:cover;
 }
 
-#home-container p{
+#home-input{
+	width:80%;
+}
+
+#input-box p{
 	cursor:pointer;
 }
 
-
-#home-left{
-	background:url('../images/background.jpg') no-repeat;
-	background-size:cover;
-	flex:1;
+#input-box {
+	border-radius : 25px;
+	background : #232121;
+	width: 25%;
+	margin: auto;
 }
 
-#login{
+#input-box{
+	color:white;
 	display:flex;
 	flex-direction:column;
 	justify-content:center;
 	align-items:center;
-	width:80%;
 }
 
 .or{
@@ -43,12 +48,12 @@
 	margin:4%;
 }
 	
-#login form{
+#input-box form{
 	display:grid;
 	bottom-margin:1.4rem;
 }
 
-#login button{
+#input-box button{
 	text-decoration:none;
 	text-align:center;
 	color: white;
@@ -63,7 +68,7 @@
 	transition: all 0.5s;
 }
 
-#login input{
+#input-box input{
 	border-radius:2px;
 	background : #181818;
 	border : 1px solid #555;
@@ -71,14 +76,6 @@
 	padding: 0.5rem 1rem;
 	line-height: 1.3rem;
 	margin-bottom : 1.3rem;	
-}
-
-#home-right{
-	display:flex;
-	flex-direction:column;
-	flex :1;
-	align-items:center;
-	justify-content:center;
 }
 
 h1,h2,h3{

@@ -38,6 +38,7 @@ class Register extends Component{
 			name = {f.name}
 			value = {this.state.name}
 			placeholder = {f.placeholder}
+			autoComplete = 'off'
 			onChange = {this.updateState}
 			/>
 		)

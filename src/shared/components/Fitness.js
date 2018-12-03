@@ -42,7 +42,7 @@ class FitnessProfile extends Component {
 	}			
 	
 	render(){
-		const { user,isLogged,auth } = this.props.auth;
+		const { user,auth } = this.props.auth;
 		if(!auth){
 			return <Redirect to = {'/'} />
 		}else{

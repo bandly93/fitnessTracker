@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { handleRender } from './render.js';
-//import session from 'express-session';
+import expressStaticGzip from 'express-static-gzip';
 import { sequelize } from './postgres';
 import passport from 'passport';
 import morgan from 'morgan';
@@ -16,6 +16,7 @@ sequelize.sync({force:false});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(morgan('dev'));
+app.use(expressStaticGzip('dist',{enableBrotili:true}));
 
 //passport setup
 app.use(passport.initialize());

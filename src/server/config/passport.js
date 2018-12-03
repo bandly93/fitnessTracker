@@ -14,12 +14,14 @@ const localOpts = {
 passport.use('local', new LocalStrategy(localOpts,async(email,password,done) => {
 	try {
 		let user = await User.findOne({where:{email}});
-		let checkPassword = await bcrypt.compare(password,user.dataValues.password);
-		if(!user || !checkPassword) {
-			return done(null,false,{message : 'bad credentails'});
-		}else{
-			return done(null,user);
+		if(!user) {
+			return done(null,false);
 		}
+		let checkPassword = await bcrypt.compare(password,user.dataValues.password);
+		if(!checkPassword){
+			return done(null,false);
+		}
+		return done(null,user);
 	}
 	catch(e){
 		done(e);	

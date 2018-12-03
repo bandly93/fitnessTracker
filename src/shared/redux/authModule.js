@@ -1,10 +1,10 @@
 let initialState = {
-	'redirectTo' : '',
+	'redirectTo' : null,
 	'user' : {},
-	'message' : '',
+	'message' : null,
 	'isLogged' : false,
-	'status' : '',
-	'token' : '',
+	'status' : null,
+	'token' : null,
 	'auth' : false,
 }
 
@@ -14,6 +14,13 @@ export const IS_LOGGED = 'IS_LOGGED';
 export const NOT_LOGGED = 'NOT_LOGGED';
 export const UPDATE_AUTH = 'UPDATE_AUTH';
 export const RESET_AUTH = 'RESET_AUTH';
+export const RESET_FLASH = 'RESET_FLASH'
+
+export const resetFlash = () => {
+	return {
+		type : RESET_FLASH,
+	}
+}
 
 export const resetAuth = () => {
 	return{
@@ -61,19 +68,16 @@ export const authReducer = (state = initialState,action) =>{
 				...state,
 				...action.data,
 			}
-
 		case REDIRECT_PATH :
 			return{
 				...state,
 				...action.path,
 			}
-
 		case UPDATE_USER :
 			return {
 				...state,
 				...action.user,
 			}
-
 		case IS_LOGGED :
 			return{
 				...state,
@@ -86,6 +90,11 @@ export const authReducer = (state = initialState,action) =>{
 			}
 		case RESET_AUTH : 
 			return initialState;
+		case RESET_FLASH :
+			return {
+				...state, 
+				...{status: null,message :null}
+			}
 		default :
 			return state;
 	}

@@ -1,0 +1,14 @@
+#flash-message{
+	text-align:center;
+}	
+
+.flash-error {
+	border : 2px solid red;
+	background: #ffc5ad; 
+}
+
+
+.flash-success {
+	border : 2px solid green;
+	background :#c4ffad;
+}

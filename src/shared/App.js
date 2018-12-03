@@ -2,10 +2,18 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import NavBar from './components/NavBar';
 import FitnessProfile from './components/Fitness';
-import { BrowserRouter as Router,Switch,Link,withRouter,Route,Redirect } from 'react-router-dom';
+import { BrowserRouter as Router,
+	Switch,
+	Link,
+	withRouter,
+	Route,
+	Redirect 
+} from 'react-router-dom';
 import { routes } from './routes.js';
 import { connect } from 'react-redux';
 import { updateAuth } from './redux/authModule.js';
+import FlashMessage from './components/FlashMessage';
+import { resetFlash } from './redux/authModule.js';
 
 class App extends Component {
 	mapRoutes = () => routes.map((route,i) => <Route
@@ -15,7 +23,10 @@ class App extends Component {
 		/>
 	)		
 	render() {
+		const { message, status } = this.props.auth;
+		const { resetFlash } = this.props;
     return<Fragment>
+			{status ? <div onClick = {resetFlash}> {FlashMessage({status,message})} </div> : null}
 			<Switch>
 				{this.mapRoutes()}
 			</Switch>
@@ -31,6 +42,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = {
 	updateAuth,
+	resetFlash
 }
 
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(App));

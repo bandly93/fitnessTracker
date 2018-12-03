@@ -6,8 +6,10 @@
   "scripts": {
     "eslint": "eslint src",
     "build:dev": "webpack --config webpack.dev.js --mode development",
+		"build" : "BABEL_ENV=production webpack --config webpack.prod.js --env.NODE_ENV=production && webpack --config webpack.server.js --mode production",
     "start": "webpack-dev-server --config webpack.dev.js --mode development",
-    "server": "nodemon --watch src/server --inspect src/server/server.js --exec babel-node"
+    "server": "nodemon --watch src/server --inspect src/server/server.js --exec babel-node",
+		"prod" : "NODE_ENV=production node dist/server-bundle.js"
   },
   "keywords": [],
   "author": "",

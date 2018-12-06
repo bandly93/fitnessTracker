@@ -70,7 +70,6 @@ authRouter.get('/user',(req,res,next) => {
 				isLogged:true,
 				auth:true,
 				user,
-				status : 'success',
 			})
 		}
 	})(req,res,next);

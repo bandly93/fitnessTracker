@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addItem } from '../redux/databaseModule.js';
 import { getData,sendData } from '../redux/fetchThunk.js';
-import '../styles/Fitness.css';
+import '../styles/InputBox.css';
 
 let radioOptions = ["Breakfast","Lunch","Dinner","Snack"];
 let inputOptions = ["item","protein","carbohydrate","fat"];
@@ -56,7 +56,7 @@ class InputBox extends Component {
 	</div>)
 
 	render(){
-		return<div>
+		return<div className ='meal-entry'>
 			<form className = 'input-form'>
 				<p> Time of Meal </p>
 				<ul>{this.mapRadio()}</ul>

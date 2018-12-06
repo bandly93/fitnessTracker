@@ -1,8 +1,9 @@
 import  React ,{ Component} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { sendData } from '../redux/fetchThunk.js';
-import { addItem } from '../redux/databaseModule.js';
+import { sendData } from '../redux/fetchThunk';
+import { addItem } from '../redux/databaseModule';
+import { inputData } from '../data/bmrData';
 
 class BMR extends Component{
 	constructor(props){
@@ -33,22 +34,27 @@ class BMR extends Component{
 	}
 
 	bmrInput = () => <form>
-		<div>
+		<h3> Calculate your BMR! </h3>
+		<div className ='bmr-input'>
 			<div className = 'height-wrapper'>	
 				<h3>Height</h3>
 				<div>
 					<input 
 						onChange = {this.updateState}
 						type = "text"  
-						name = "feet" 
-						value = {this.state.feet} />
-					ft
+						name = "feet"
+						placeholder = "feet"
+						autoComplete = "off"
+						value = {this.state.name} 
+					/>
 					<input 
 						onChange = {this.updateState}
 						type = "text" 
 						name = "inches" 
-						value = {this.state.inches} />
-					in
+						placeholder = "inches"
+						autoComplete = "off"
+						value = {this.state.name} 
+					/>
 				</div>
 			</div>
 			<div className ='weight-wrapper'>
@@ -58,8 +64,10 @@ class BMR extends Component{
 						onChange = {this.updateState}
 						type = "text" 
 						name = "weight" 
-						value = {this.state.weight} />
-					lbs
+						placeholder = "lbs"
+						autoComplete = "off"
+						value = {this.state.name} 
+					/>
 				</div>
 			</div>
 			<div className = 'age-wrapper'>
@@ -67,9 +75,12 @@ class BMR extends Component{
 				<div>
 					<input 
 						onChange = {this.updateState}
+						placeholder = "age"
+						autoComplete = "off"
 						type = 'text' 
 						name = 'age' 
-						value = {this.state.age}/>
+						value = {this.state.name}
+					/>
 				</div>
 			</div>
 			<div className = 'gender-wrapper'>
@@ -80,17 +91,22 @@ class BMR extends Component{
 						onClick = {this.updateState}
 						type = 'button' 
 						name = 'gender' 
-						value = "Male"/>
+						value = "Male"
+					/>
 					<input 
 						className = {this.state.gender ==='Female'? 'active' :'none'}
 						onClick = {this.updateState}
 						type = 'button' 
 						name = 'gender' 
-						value = "Female"/>
+						value = "Female"
+					/>
 				</div>
 			</div>
 			<div className = 'submit-wrapper'>
-				<input type = 'submit' onClick = {this.handleSubmit} />
+				<input
+					type = 'submit' 
+					onClick = {this.handleSubmit} 
+				/>
 			</div>
 		</div>
 	</form>
@@ -107,15 +123,16 @@ class BMR extends Component{
 	}
 
 	bmrReport = () => {
+		const { bmr } = this.props.database.bmr;
 		return <div>
-			<h1> Your estimated BMR is {this.props.database.bmr.bmr}. </h1>
+			<h1> Your estimated BMR is {bmr}. </h1>
 		</div>	
 	}
 	
 	render(){
 		const { bmr } = this.props.database;
 		return<div>
-			{bmr? this.bmrReport() : this.bmrInput()}
+			{ bmr? this.bmrReport() : this.bmrInput() }
 		</div>
 	}
 }

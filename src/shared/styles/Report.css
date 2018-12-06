@@ -1,0 +1,12 @@
+#report {
+	display:flex;
+	height : 50%;
+	border : 1px solid #f2efef;
+	background : #f6f6f6;
+	border-radius: 10px;
+}
+
+#report div{
+	flex:1;
+}
+

@@ -1,14 +1,17 @@
 const express = require('express');
 const pgRouter = express();
 import { sequelize } from '../postgres.js';
+import moment from 'moment';
 const { food_table:Food , bmr_table:BMR } = sequelize.models;
 
 pgRouter.post('/getUserInfo', async(req,res) => {
 		const { userId } = req.body;
+		let date = moment().format().split('T')[0];
 		try {
 			let foodItems = await Food.findAll({where:{userId}});
 			let bmr = await BMR.findOne({where:{userId}});
-			res.json({foodItems,bmr});
+			let dailyItems = await Food.findAll({where:{userId,createdAt:{[sequelize.Op.gt]:`${date} 00:00:00.000-00`}}});
+			res.json({foodItems,bmr,dailyItems});
 		}
 		catch(e){
 			throw(e);
@@ -17,12 +20,14 @@ pgRouter.post('/getUserInfo', async(req,res) => {
 
 pgRouter.post('/addFood',(req,res) => {
 	const { userId } = req.body;
+	let date = moment().format().split('T')[0];
 	Food
 		.build(req.body)
 		.save()
 		.then(async() => {
 			let foodItems = await Food.findAll({where: {userId}});
-			res.json({foodItems});	
+			let dailyItems = await Food.findAll({where:{userId,createdAt:{[sequelize.Op.gt]:`${date} 00:00:00.000-00`}}});	
+			res.json({foodItems,dailyItems});	
 		})
 		.catch(err => {
 			console.log(err);

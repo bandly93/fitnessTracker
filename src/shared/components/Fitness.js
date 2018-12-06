@@ -5,19 +5,19 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 //Components
-import InputBox from './InputBox';
 import Logger from './Logger';
 import NavBar from './NavBar';
 //Containers
 import { Report } from '../containers/Report';
 import { Title } from '../containers/Title';
 //Utility
-import { authFetch } from '../redux/fetchThunk';
+import { authFetch,sendData } from '../redux/fetchThunk';
 import { updateAuth } from '../redux/authModule';
+import { addItem } from '../redux/databaseModule';
 
 class FitnessProfile extends Component {
 	async componentDidMount(){
-		const { authFetch,updateAuth,auth } = this.props;
+		const { authFetch,updateAuth,auth,addItem,sendData } = this.props;
 		const jwtToken = localStorage.getItem('JWT');
 		if(jwtToken){
 			await axios
@@ -26,10 +26,11 @@ class FitnessProfile extends Component {
 				})
 				.then(response => {
 					updateAuth(response.data);
+					sendData('/postgres/getUserInfo','POST',auth.user,addItem);	
 				})
 				.catch(err => {
 					console.log(err);
-				})
+				})	
 		}
 	}
 
@@ -43,6 +44,7 @@ class FitnessProfile extends Component {
 		})
 		return {
 			title: "Today's Consumption",
+			count : dailyItems.length,
 			pro: macros[0],
 			carbs : macros[1],
 			fats : macros[2],
@@ -59,18 +61,15 @@ class FitnessProfile extends Component {
 		
 	render(){
 		const { user,auth } = this.props.auth;
-		let text = 'Welcome to the FitnessPage!';
+		let text = 'Dashboard';
 		if(!auth){
 			return <Redirect to = {'/'} />
 		}else{
 			return<Fragment>
 				<NavBar />	
-				<Title props = {{user,text}}/>
+				<Title props = {{user}}/>
 				<Report data = {this.getGraphData()} />
-				{/*
-				<InputBox />
 				<Logger />
-				*/}
 			</Fragment>
 		}
 	}
@@ -81,6 +80,8 @@ FitnessProfile.propTypes = {
 	database : PropTypes.object.isRequired,
 	authFetch : PropTypes.func,
 	updateAuth : PropTypes.func,
+	addItem : PropTypes.func,
+	sendData : PropTypes.func,
 }
 
 const mapStateToProps = (state) => {
@@ -93,6 +94,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
 	authFetch,
 	updateAuth,
+	addItem,
+	sendData,
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(FitnessProfile);

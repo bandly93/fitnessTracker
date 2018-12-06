@@ -13,10 +13,6 @@ for ( let i = 0 ; i < columns.length; i++){
 }
 
 class Logger extends Component{	
-	componentDidMount(){
-		const { sendData,addItem,auth} = this.props;	
-		sendData('/postgres/getUserInfo','POST',auth.user,addItem);
-	}
 	render(){
 		const{foodItems} = this.props.database;
 		return<Fragment>
@@ -32,23 +28,11 @@ class Logger extends Component{
 
 Logger.propTypes = {
 	database : PropTypes.object.isRequired,
-	auth : PropTypes.object.isRequired,
-	addItem : PropTypes.func.isRequired,
-	sendData : PropTypes.func.isRequired,
-	getData : PropTypes.func.isRequired,	
 }
 
 const mapStateToProps = (state) =>{
 	return {
 		database : state.database,
-		auth : state.auth,
 	}
 }
-
-const mapDispatchToProps = {
-	addItem,
-	sendData,
-	getData,
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(Logger);
+export default connect(mapStateToProps)(Logger);

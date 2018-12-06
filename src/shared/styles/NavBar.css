@@ -1,0 +1,28 @@
+#navbar{
+	border : 1px solid #f2efef;
+	background : #f6f6f6;
+	border-radius:10px;
+	display:flex;
+	height: 7vh;
+}
+
+#navbar-right, #navbar-left{
+	flex:1;
+}
+
+#navbar-right{
+	display:contents;
+}	
+
+#navbar div{
+	margin: 0 10px;
+	align-self : center;	
+}
+
+#navbar a{
+	text-decoration:none;
+}
+
+a:visited{
+	text-decoration:none;
+}

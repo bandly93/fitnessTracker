@@ -1,9 +1,10 @@
 import React, { Component,Fragment } from 'react';
+import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
-import { addItem } from '../redux/databaseModule.js';
 import { connect } from 'react-redux';
 import 'react-table/react-table.css';
-import { sendData,getData } from '../redux/fetchThunk.js';
+import { addItem } from '../redux/databaseModule';
+import { sendData,getData } from '../redux/fetchThunk';
 
 let columns = ['createdAt','mealType','item','protein','carbohydrate','fat','calories'];
 
@@ -29,9 +30,16 @@ class Logger extends Component{
 	}
 }
 
+Logger.propTypes = {
+	database : PropTypes.object.isRequired,
+	auth : PropTypes.object.isRequired,
+	addItem : PropTypes.func.isRequired,
+	sendData : PropTypes.func.isRequired,
+	getData : PropTypes.func.isRequired,	
+}
+
 const mapStateToProps = (state) =>{
 	return {
-		view : state.view,
 		database : state.database,
 		auth : state.auth,
 	}

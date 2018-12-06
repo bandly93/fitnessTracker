@@ -1,7 +1,8 @@
 import  React ,{ Component} from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { sendData } from '../redux/fetchThunk.js';
 import { addItem } from '../redux/databaseModule.js';
-import { connect } from 'react-redux';
 
 class BMR extends Component{
 	constructor(props){
@@ -117,6 +118,13 @@ class BMR extends Component{
 			{bmr? this.bmrReport() : this.bmrInput()}
 		</div>
 	}
+}
+
+BMR.propTypes = {
+	database : PropTypes.object.isRequired,
+	auth : PropTypes.object.isRequired,
+	sendData : PropTypes.func.isRequired,
+	addItem : PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => {

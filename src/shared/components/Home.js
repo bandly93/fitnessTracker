@@ -1,4 +1,5 @@
 import React, { Component,Fragment } from 'react';
+import PropTypes from 'prop-types';
 import {Link,Switch} from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
@@ -50,6 +51,10 @@ class Home extends Component {
 			</footer>
 		</div>
 	}
+}
+
+Home.propTypes = {
+
 }
 
 export default Home;

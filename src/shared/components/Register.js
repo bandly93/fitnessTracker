@@ -1,8 +1,9 @@
 import React,{Component,Fragment} from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import { sendData } from '../redux/fetchThunk.js';
-import { updateAuth } from '../redux/authModule.js'; 
+import { sendData } from '../redux/fetchThunk';
+import { updateAuth } from '../redux/authModule'; 
 import { registerData } from '../data/registerData';
 import { updateState,mapForm,button} from '../utils/inputUtils';
 
@@ -57,9 +58,15 @@ class Register extends Component{
 	}
 }
 
+Register.propTypes = {
+	auth : PropTypes.object,
+	sendData : PropTypes.func,
+	updateAuth : PropTypes.func,
+
+}
+
 const mapStateToProps = (state) => {
 	return {
-		view: state.view,
 		auth : state.auth,
 	}
 }

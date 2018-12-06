@@ -1,8 +1,9 @@
 import React, { Component,Fragment} from 'react';
+import PropTypes from 'prop-types';
 import { connect} from 'react-redux';
-import { sendData,getData,authFetch } from '../redux/fetchThunk.js';
+import { sendData,getData,authFetch } from '../redux/fetchThunk';
 import { Redirect } from 'react-router';
-import { updateAuth } from '../redux/authModule.js';
+import { updateAuth } from '../redux/authModule';
 import { loginData } from '../data/loginData';
 
 class Login extends Component{
@@ -52,9 +53,16 @@ class Login extends Component{
 	}
 }
 
+Login.propTypes = {
+	auth : PropTypes.object,
+	sendData : PropTypes.func,
+	getData : PropTypes.func,
+	updateAuth : PropTypes.func,
+	authFetch : PropTypes.func,
+}
+
 const mapStateToProps = (state) =>{
 	return{
-		view : state.view,
 		auth : state.auth,
 	}
 }

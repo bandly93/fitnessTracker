@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addItem } from '../redux/databaseModule.js';
 import { getData,sendData } from '../redux/fetchThunk.js';
@@ -10,7 +11,11 @@ let inputOptions = ["item","protein","carbohydrate","fat"];
 class InputBox extends Component {
 	constructor(props){
 		super(props)
-		this.state = {
+		this.state = this.getInitialState();
+	}
+
+	getInitialState = () => {
+		return {
 			userId : '',
 			mealType: '',
 			item : '',
@@ -32,6 +37,7 @@ class InputBox extends Component {
 		let calories = await (fat * 9) + (protein * 4) + (carbohydrate * 4);
 		this.setState({calories,userId:auth.user.userId});
 		sendData('/postgres/addFood','POST',this.state,addItem);
+		this.setState(this.getInitialState());
 	}
 
 	mapRadio = () => radioOptions.map(f => (
@@ -62,9 +68,16 @@ class InputBox extends Component {
 	}
 }
 
+InputBox.propTypes = {
+	database : PropTypes.object.isRequired,
+	auth : PropTypes.object.isRequired,
+	addItem : PropTypes.func.isRequired,
+	sendData : PropTypes.func.isRequired,
+	getData : PropTypes.func.isRequired,	
+}
+
 const mapStateToProps = (state) =>{
 	return {
-		view: state.view,
 		database : state.database,
 		auth: state.auth,
 	}

@@ -1,16 +1,21 @@
+//Library
 import React, { Fragment,Component } from 'react';
-import InputBox from './InputBox.js';
-import Logger from './Logger.js';
-import BMR from './BMR.js';
-import { authFetch } from '../redux/fetchThunk.js';
-import { connect,store } from 'react-redux';
-import { updateAuth,resetAuth } from '../redux/authModule.js';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import { resetDB } from '../redux/databaseModule.js';
+import PropTypes from 'prop-types';
+//Components
+import InputBox from './InputBox';
+import Logger from './Logger';
+import NavBar from './NavBar';
+//Containers
+import { Report } from '../containers/Report';
+import { Title } from '../containers/Title';
+//Utility
+import { authFetch } from '../redux/fetchThunk';
+import { updateAuth } from '../redux/authModule';
 
 class FitnessProfile extends Component {
-	
 	async componentDidMount(){
 		const { authFetch,updateAuth,auth } = this.props;
 		const jwtToken = localStorage.getItem('JWT');
@@ -25,50 +30,69 @@ class FitnessProfile extends Component {
 				.catch(err => {
 					console.log(err);
 				})
-		}	
-	}
-	
-	handleLogout = () => {
-		const { resetAuth,resetDB } = this.props;
-		delete localStorage.JWT;
-		resetAuth();
-		resetDB();	
+		}
 	}
 
-	logoutButton = () => {
-		return <div>
-			<p onClick = {this.handleLogout}> Logout </p>
-		</div>
-	}			
-	
+	getGraphData = () => {
+		const { dailyItems } = this.props.database;
+		let macros = [0,0,0];
+		dailyItems.forEach((item) => {
+			macros[0] += item.protein;
+			macros[1] += item.carbohydrate;
+			macros[2] += item.fat;
+		})
+		return {
+			title: "Today's Consumption",
+			pro: macros[0],
+			carbs : macros[1],
+			fats : macros[2],
+			labels: ['Protein','Carbs','Fats'],
+			datasets: [
+				{
+					data: macros,
+					backgroundColor: ['#FF6384','#36A2EB','#FFCE56'],
+					hoverBackgroundColor: ['#FF6384','#36A2EB','#FFCE56']
+				}
+			]
+		}
+	}
+		
 	render(){
 		const { user,auth } = this.props.auth;
+		let text = 'Welcome to the FitnessPage!';
 		if(!auth){
 			return <Redirect to = {'/'} />
 		}else{
 			return<Fragment>
-				{this.logoutButton()}
-				<h1>Hello, {user.firstName} </h1>
-				<h1> Welcome to the Fitness page! </h1>
+				<NavBar />	
+				<Title props = {{user,text}}/>
+				<Report data = {this.getGraphData()} />
+				{/*
 				<InputBox />
-				<BMR />
 				<Logger />
+				*/}
 			</Fragment>
 		}
 	}
 }
 
+FitnessProfile.propTypes = {
+	auth : PropTypes.object.isRequired,
+	database : PropTypes.object.isRequired,
+	authFetch : PropTypes.func,
+	updateAuth : PropTypes.func,
+}
+
 const mapStateToProps = (state) => {
 	return{
 		auth : state.auth,
+		database : state.database,
 	}
 } 
 
 const mapDispatchToProps = {
 	authFetch,
 	updateAuth,
-	resetAuth,
-	resetDB,
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(FitnessProfile);

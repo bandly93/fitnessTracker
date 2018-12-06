@@ -4,6 +4,7 @@ const RESET_REDUX = 'RESET_REDUX';
 let initialState = {
 	foodItems : [],
 	bmr : {},
+	dailyItems : [],
 }
 
 export const addItem = (data) => {

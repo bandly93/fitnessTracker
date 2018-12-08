@@ -1,12 +1,13 @@
-#flash-message{
+#flash-message {
+	border-radius : 10px;
 	text-align:center;
+	margin-bottom : 2%;
 }	
 
 .flash-error {
 	border : 2px solid red;
 	background: #ffc5ad; 
 }
-
 
 .flash-success {
 	border : 2px solid green;

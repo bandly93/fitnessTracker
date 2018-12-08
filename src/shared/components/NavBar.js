@@ -33,8 +33,10 @@ class NavBar extends Component{
 				<div><Link to =''> Home </Link></div>
 			</div>
 			<div id = 'navbar-right'>
+				{/*
 				<div><Link to = ''> Reports </Link></div>
 				<div><Link to = ''> Account </Link></div>
+				*/}
 				{this.logoutButton()} 
 			</div>
 		</nav>

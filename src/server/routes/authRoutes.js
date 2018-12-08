@@ -27,7 +27,7 @@ authRouter.post('/login',(req,res,next) => {
 						isLogged : true,
 						user,
 						status : 'success',
-						message : 'Credentials validated and user has logged in successfully.'
+						message : 'Credentials validated and user has successfully logged in.'
 					})
 				}
 			})

@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 //Components
 import Logger from './Logger';
 import NavBar from './NavBar';
+import BMR from './BMR';
 //Containers
 import { Report } from '../containers/Report';
 import { Title } from '../containers/Title';
@@ -61,15 +62,24 @@ class FitnessProfile extends Component {
 		
 	render(){
 		const { user,auth } = this.props.auth;
+		const { bmr } = this.props.database;
+
 		let text = 'Dashboard';
 		if(!auth){
 			return <Redirect to = {'/'} />
 		}else{
 			return<Fragment>
 				<NavBar />	
-				<Title props = {{user}}/>
-				<Report data = {this.getGraphData()} />
-				<Logger />
+				<Title props = {{user}}/>	
+				{
+					bmr?
+						<div>
+							<Report data = {this.getGraphData()} /> 
+							<Logger />
+						</div>
+					:
+						<BMR />
+				}
 			</Fragment>
 		}
 	}

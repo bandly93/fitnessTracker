@@ -25,12 +25,12 @@ export const renderFullPage = (html, preloadedState) => `
 		<!doctype html>
 		<html lang = 'en'>
 			<head>
-				<title> placeholder </title>
+				<title> FitnessTrackr </title>
 				<meta name = 'viewport' content = 'width=device-width'>
-				<meta name = 'description' content = 'placeholder'>
+				<meta name = 'description' content = 'FitnessTrackr'>
 				<link rel ="stylesheet" href = "/client-bundle.css">
 				<link rel="icon" href="data:;base64,iVBORwOKGO=">
-				<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+				<link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
 			</head>
 			<body>
 				<div id="root">${html}</div>

@@ -5,7 +5,7 @@ import { addItem } from '../redux/databaseModule.js';
 import { getData,sendData } from '../redux/fetchThunk.js';
 import '../styles/InputBox.css';
 
-let radioOptions = ["Breakfast","Lunch","Dinner","Snack"];
+let radioOptions = ["Snack","Breakfast","Lunch","Dinner"];
 let inputOptions = ["item","protein","carbohydrate","fat"];
 
 class InputBox extends Component {
@@ -25,13 +25,18 @@ class InputBox extends Component {
 			calories : '',
 		}
 	}
+
+	setInitialState = () => {
+		this.setState(this.getInitialState());
+	}
 	
 	updateState = (e) => {
 		const { name,value } = e.target;
 		this.setState({[name]:value});
 	}
 		
-	handleSubmit = async () =>{
+	handleSubmit = async (e) =>{
+		e.preventDefault();
 		const { addItem, sendData, auth } = this.props;
 		const { fat,protein,carbohydrate } = this.state;
 		let calories = await (fat * 9) + (protein * 4) + (carbohydrate * 4);
@@ -50,19 +55,40 @@ class InputBox extends Component {
 			onClick = {this.updateState} />
 	))
 
-	mapInput = () => inputOptions.map(f => <div className = 'food-item' key = {f}>
-		{f}
-		<input type = "text" name = {f} value = {this.state[f]} onChange = {this.updateState} />
-	</div>)
+	mapInput = () => inputOptions.map(f => ( 
+		<input
+			key = {f} 
+			type = "text" 
+			name = {f} 
+			placeholder = {f}
+			autoComplete = 'off'
+			value = {this.state[f]} 
+			onChange = {this.updateState} 
+		/>
+	))
 
 	render(){
 		return<div className ='meal-entry'>
 			<form className = 'input-form'>
-				<p> Time of Meal </p>
+				<h1> Entry Form </h1>
+				<p> Select meal type : </p>
 				<ul>{this.mapRadio()}</ul>
-				<p> Food Description </p>
+				<p> Enter food macros : </p>
 				<ul>{this.mapInput()}</ul>
-				<p onClick = {this.handleSubmit} className = 'submit-btn'>Submit</p>
+				<div className = 'input-footer'>	
+					<input
+						type = 'button'
+						onClick = {this.setInitialState}
+						className = 'clear-btn'
+						value = 'Clear'
+					/>
+					<input 
+						type = 'submit' 
+						onClick = {this.handleSubmit} 
+						className = 'submit-btn'
+						value = 'Submit' 
+					/>
+				</div>
 			</form>
 		</div>
 	}

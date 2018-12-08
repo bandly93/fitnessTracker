@@ -1,3 +1,5 @@
+/* CSS for report component */
+
 #report {
 	display:flex;
 	height : 50%;
@@ -8,5 +10,8 @@
 
 #report div{
 	flex:1;
+	margin-right:2%;
 }
+
+
 

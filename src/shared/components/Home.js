@@ -25,7 +25,7 @@ class Home extends Component {
 		return<div id = 'home-container'>
 			<div id = 'home-title'>
 				<h1>Welcome to FitnessTrackr </h1>
-				<p> The simple approach to counting macros and start achieving your fitness goals.</p>
+				<p> The simple approach to counting macros and achieving your fitness goals.</p>
 			</div>
 			<div id = 'input-box'>
 				<div id = 'home-input'>

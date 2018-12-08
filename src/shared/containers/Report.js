@@ -7,6 +7,9 @@ import '../styles/Report.css';
 export const Report = ({data}) => {
 	return <div id = 'report'>
 		<Chart data = {data}/>
-		<InputBox />
+		<div>
+			<InputBox />
+			<BMR />
+		</div>
 	</div>
 }

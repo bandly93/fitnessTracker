@@ -34,7 +34,7 @@ class BMR extends Component{
 	}
 
 	bmrInput = () => <form>
-		<h3> Calculate your BMR! </h3>
+		<p> Lets get started by entering your body measurements. This will ultimately help us build out your peronsalized dashboard. Don't worry, you can always update your body measurements as you go, incase you lose weight or gain muscle!</p>
 		<div className ='bmr-input'>
 			<div className = 'height-wrapper'>	
 				<h3>Height</h3>
@@ -105,7 +105,8 @@ class BMR extends Component{
 			<div className = 'submit-wrapper'>
 				<input
 					type = 'submit' 
-					onClick = {this.handleSubmit} 
+					onClick = {this.handleSubmit}
+					value = 'View Dashboard' 
 				/>
 			</div>
 		</div>
@@ -124,8 +125,10 @@ class BMR extends Component{
 
 	bmrReport = () => {
 		const { bmr } = this.props.database.bmr;
+		let BMR = Math.round(bmr);
 		return <div>
-			<h1> Your estimated BMR is {bmr}. </h1>
+			<p> *Based on the information you have provided, your estimated BMR is {BMR}. </p>
+			<p> *All calculations and units are based off of the measurement grams. </p>
 		</div>	
 	}
 	

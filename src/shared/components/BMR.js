@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { sendData } from '../redux/fetchThunk';
 import { addItem } from '../redux/databaseModule';
 import { inputData } from '../data/bmrData';
+import '../styles/BMR.css';
 
 class BMR extends Component{
 	constructor(props){
@@ -35,10 +36,10 @@ class BMR extends Component{
 
 	bmrInput = () => <form>
 		<p> Lets get started by entering your body measurements. This will ultimately help us build out your peronsalized dashboard. Don't worry, you can always update your body measurements as you go, incase you lose weight or gain muscle!</p>
-		<div className ='bmr-input'>
+		<div id ='bmr-input'>
 			<div className = 'height-wrapper'>	
 				<h3>Height</h3>
-				<div>
+				<div className = 'bmr-input'>
 					<input 
 						onChange = {this.updateState}
 						type = "text"  
@@ -59,7 +60,7 @@ class BMR extends Component{
 			</div>
 			<div className ='weight-wrapper'>
 				<h3>Weight</h3>
-				<div>
+				<div className ='bmr-input'>
 					<input
 						onChange = {this.updateState}
 						type = "text" 
@@ -72,7 +73,7 @@ class BMR extends Component{
 			</div>
 			<div className = 'age-wrapper'>
 				<h3> Age </h3>
-				<div>
+				<div className = 'bmr-input'>
 					<input 
 						onChange = {this.updateState}
 						placeholder = "age"
@@ -85,7 +86,7 @@ class BMR extends Component{
 			</div>
 			<div className = 'gender-wrapper'>
 				<h3> Gender </h3>
-				<div>
+				<div className = 'bmr-input'>
 					<input 
 						className = {this.state.gender === 'Male'? 'active' :'none'}
 						onClick = {this.updateState}

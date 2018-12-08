@@ -23,8 +23,26 @@
 #input-box {
 	border-radius : 25px;
 	background : #232121;
-	width: 25%;
 	margin: auto;
+}
+
+@media only screen and (max-width : 500px){
+	#input-box {
+		width : 90%;
+	}
+}
+
+
+@media only screen and (min-width: 501px) {
+	#input-box{
+		width : 60%;
+	}
+}
+
+@media only screen and (min-width : 900px){
+	#input-box{
+		width : 25%;
+	}
 }
 
 #input-box{

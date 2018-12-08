@@ -16,6 +16,16 @@ export const mapForm = (inputData) => {
 	})
 }
 
+export const checkInputForm = (initialInput,currentInput) => {
+	let keys = Object.keys(currentInput);
+	for(let i = 0; i< keys.length; i++){
+		if(initialInput[keys[i]] === currentInput[keys[i]]){
+			return false;
+		}
+	}
+	return true;
+}
+
 const button = () => {
 	return <button onClick = {this.handleSubmit}> Submit </button>
 } 
@@ -24,4 +34,5 @@ module.exports = {
 	updateState,
 	mapForm,
 	button,
+	checkInputForm,
 }

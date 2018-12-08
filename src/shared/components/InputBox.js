@@ -9,8 +9,8 @@ let radioOptions = ["Snack","Breakfast","Lunch","Dinner"];
 let inputOptions = ["item","protein","carbohydrate","fat"];
 
 class InputBox extends Component {
-	constructor(props){
-		super(props)
+	constructor(){
+		super()
 		this.state = this.getInitialState();
 	}
 

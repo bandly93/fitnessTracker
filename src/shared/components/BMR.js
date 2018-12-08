@@ -2,40 +2,54 @@ import  React ,{ Component} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { sendData } from '../redux/fetchThunk';
+import { updateAuth } from '../redux/authModule';
 import { addItem } from '../redux/databaseModule';
+import { setFlashMessage } from '../redux/flashModule';
 import { inputData } from '../data/bmrData';
+import { checkInputForm } from '../utils/inputUtils';
 import '../styles/BMR.css';
 
 class BMR extends Component{
 	constructor(props){
 		super(props)
-		this.state = {
-			feet : 0,
-			inches : 0,
-			weight : 0,
-			age : 0,
-			gender: 0,
-			activityRate: 0.75,
-			bmr : 0,
+		this.state = this.getInitialState();
+	}
+
+	getInitialState = () => {
+		return {
+			feet : null,
+			inches : null,
+			weight : null,
+			age : null,
+			gender: null,
+			bmr : null,
 		}
 	}
 
 	updateState = (e) =>{
-		const {name, value} = e.target;
+		const { name,value } = e.target;
 		this.setState({[name]:value});
 	}	
 	
 	handleSubmit = async (e) => {
 		e.preventDefault();
-		this.setState({bmr: await this.calcBMR()});
-		const { sendData , addItem } = this.props;
-		let bmrInfo = {...this.state};
-		bmrInfo.userId = this.props.auth.user.userId;	
-		sendData('/postgres/addBmr','POST',bmrInfo,addItem);	
+		let init = await this.getInitialState();
+		delete init.bmr;
+		let valid = await checkInputForm(init,this.state);
+		
+		if(valid){
+			this.setState({bmr: await this.calcBMR()});
+			const { sendData , addItem } = this.props;
+			let bmrInfo = {...this.state};
+			bmrInfo.userId = this.props.auth.user.userId;	
+			sendData('/postgres/addBmr','POST',bmrInfo,addItem);
+		}else{
+			this.props.updateAuth({status:'error',message:'Please fill form to continue.'});	
+		}	
 	}
 
 	bmrInput = () => <form>
-		<p> Lets get started by entering your body measurements. This will ultimately help us build out your peronsalized dashboard. Don't worry, you can always update your body measurements as you go, incase you lose weight or gain muscle!</p>
+		<p> Lets get started by entering your body measurements. This will ultimately help us build out your personalize dashboard. Don't worry, you can always update your body measurements as you go, incase you lose weight or gain muscle! Once you've finished adding your body measurements, press "View Dashboard" to view your new account.</p>
 		<div id ='bmr-input'>
 			<div className = 'height-wrapper'>	
 				<h3>Height</h3>
@@ -146,6 +160,7 @@ BMR.propTypes = {
 	auth : PropTypes.object.isRequired,
 	sendData : PropTypes.func.isRequired,
 	addItem : PropTypes.func.isRequired,
+	updateAuth : PropTypes.func,
 }
 
 const mapStateToProps = (state) => {
@@ -158,6 +173,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
 	sendData,
 	addItem,
+	updateAuth,
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(BMR);

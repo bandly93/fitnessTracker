@@ -5,15 +5,20 @@ import { sendData,getData,authFetch } from '../redux/fetchThunk';
 import { Redirect } from 'react-router';
 import { updateAuth } from '../redux/authModule';
 import { loginData } from '../data/loginData';
+import { checkInputForm } from '../utils/inputUtils';
 
 class Login extends Component{
 	constructor(props){
 		super(props)
-		this.state = {
-			email : '',
-			password : '',
-		}
+		this.state = this.getInitialState();
 	}	
+
+	getInitialState = () => {
+		return{
+			email : null,
+			password : null,
+		}
+	}
 
 	updateState = (e) =>{
 		const {name,value} = e.target;

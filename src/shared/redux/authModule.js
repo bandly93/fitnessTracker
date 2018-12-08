@@ -14,7 +14,7 @@ export const IS_LOGGED = 'IS_LOGGED';
 export const NOT_LOGGED = 'NOT_LOGGED';
 export const UPDATE_AUTH = 'UPDATE_AUTH';
 export const RESET_AUTH = 'RESET_AUTH';
-export const RESET_FLASH = 'RESET_FLASH'
+export const RESET_FLASH = 'RESET_FLASH';
 
 export const resetFlash = () => {
 	return {

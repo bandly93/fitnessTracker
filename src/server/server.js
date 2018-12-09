@@ -7,7 +7,7 @@ import passport from 'passport';
 import morgan from 'morgan';
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 require('./config/passport');
 

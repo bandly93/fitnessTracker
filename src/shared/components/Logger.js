@@ -2,7 +2,7 @@ import React, { Component,Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
 import { connect } from 'react-redux';
-import 'react-table/react-table.css';
+import '../styles/react-table.css';
 import { addItem } from '../redux/databaseModule';
 import { sendData,getData } from '../redux/fetchThunk';
 

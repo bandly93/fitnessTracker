@@ -1,11 +1,11 @@
-import express from 'express';
-import passport from 'passport';
-import jwtSecret from '../config/jwtConfig';
-import jwt from 'jsonwebtoken';
-import { sequelize } from '../postgres';
+const express =require('express');
+const passport =require('passport');
+const jwtSecret =require('../config/jwtConfig');
+const jwt =require('jsonwebtoken');
+const { sequelize } =require('../postgres');
 const { user_table:User } = sequelize.models;
-import uuidv4 from 'uuid/v4';
-import bcrypt from 'bcrypt';
+const uuidv4 =require('uuid/v4');
+const bcrypt =require('bcrypt');
 	
 const authRouter = express();
 

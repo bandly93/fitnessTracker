@@ -2,7 +2,7 @@ import jwtSecret from './jwtConfig';
 import bcrypt from 'bcrypt';
 import { sequelize } from '../postgres';
 const { user_table:User } = sequelize.models;
-const passport = require('passport')
+import passport from 'passport';
 const { Strategy:JWTStrategy , ExtractJwt } = require('passport-jwt');
 const { Strategy:LocalStrategy } = require('passport-local');
 

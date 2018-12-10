@@ -1,8 +1,8 @@
-import {Sequelize} from 'sequelize';
+const {Sequelize} =require('sequelize');
 
-import { DB_NAME,DB_USERNAME, DB_PASSWORD } from '../../config.json';
+const { DB_NAME,DB_USERNAME, DB_PASSWORD } = require('../../config.json');
 
-export const sequelize = new Sequelize(
+const sequelize = new Sequelize(
 	DB_NAME,DB_USERNAME,DB_PASSWORD,{
 		host : 'localhost',
 		port : 5432,

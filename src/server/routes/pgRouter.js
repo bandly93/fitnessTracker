@@ -1,7 +1,7 @@
 const express = require('express');
 const pgRouter = express();
-import { sequelize } from '../postgres.js';
-import moment from 'moment';
+const { sequelize } =require('../postgres.js');
+const moment =require('moment');
 const { food_table:Food , bmr_table:BMR } = sequelize.models;
 
 pgRouter.post('/getUserInfo', async(req,res) => {

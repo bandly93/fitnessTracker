@@ -5,8 +5,6 @@ const BrotliPlugin = require('brotli-webpack-plugin');
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 const isProd = process.env.NODE_ENV === 'production';
-require("@babel/polyfill");
-
 
 module.exports = env => { 
   return merge(common,{

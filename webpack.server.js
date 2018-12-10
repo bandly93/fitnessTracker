@@ -1,7 +1,6 @@
 const nodeExternals = require('webpack-node-externals');
 const common = require('./webpack.common.js');
 const merge = require('webpack-merge');
-require('@babel/polyfill');
 
 //a webpack for server development
 module.exports = merge(common,{
